@@ -1,20 +1,10 @@
 # tap-msipranges
 
-`tap-msipranges` is a Singer tap for MsIPRanges.
+`tap-msipranges` is a Singer tap for Microsoft Azure IP Ranges and Service Tags – Public Cloud.
 
 Built with the [Meltano Tap SDK](https://sdk.meltano.com) for Singer Taps.
 
-<!--
-
-Developer TODO: Update the below as needed to correctly describe the install procedure. For instance, if you do not have a PyPi repo, or if you want users to directly install from your git repo, you can modify this step as appropriate.
-
 ## Installation
-
-Install from PyPi:
-
-```bash
-pipx install tap-msipranges
-```
 
 Install from GitHub:
 
@@ -22,21 +12,46 @@ Install from GitHub:
 pipx install git+https://github.com/ORG_NAME/tap-msipranges.git@main
 ```
 
--->
+## Capabilities
 
-## Configuration
+* `catalog`
+* `state`
+* `discover`
+* `about`
+* `stream-maps`
+* `schema-flattening`
+* `batch`
 
-### Accepted Config Options
+## Settings
 
-<!--
-Developer TODO: Provide a list of config options accepted by the tap.
+By default this tap goes to [Azure IP Ranges and Service Tags – Public Cloud](https://www.microsoft.com/en-us/download/confirmation.aspx?id=56519) - however it could be reconfigured to extract a download link from any Microsoft `/download/confirmation.aspx` type page. The JSON schema is hardcoded into `tap_msipranges/client.py` - so that would need to be updated for other file structures.
 
-This section can be created by copy-pasting the CLI output from:
+The settings below are provided should the "Azure IP Ranges" MS page move or be reconfigured such that the JSON download link is not found at the 'failoverLink' location (the failoverLink is the "Click here if your download has not started automatically link"):
 
-```
-tap-msipranges --about --format=markdown
-```
--->
+| Setting                  | Required | Default | Description |
+|:-------------------------|:--------:|:-------:|:------------|
+| download_url             | False    | https://www.microsoft.com/en-us/download/confirmation.aspx?id=56519 | The download url for the Microsoft Azure API Ranges |
+| download_link_xpath      | False    | //a[contains(@class, 'failoverLink') and contains(@href,'download.microsoft.com/download/')]/@href | The XPath expression that extracts a list of download links  |
+| download_link_xpath_index| False    |       0 | The index of the element containing the download link - paired with the download_link_xpath expression |
+| stream_maps              | False    | None    | Config object for stream maps capability. For more information check out [Stream Maps](https://sdk.meltano.com/en/latest/stream_maps.html). |
+| stream_map_config        | False    | None    | User-defined config values to be used within map expressions. |
+| flattening_enabled       | False    | None    | 'True' to enable schema flattening and automatically expand nested properties. |
+| flattening_max_depth     | False    | None    | The max depth to flatten schemas. |
+| batch_config             | False    | None    |             |
+
+A full list of supported settings and capabilities is available by running: `tap-msipranges --about`
+
+## Supported Python Versions
+
+* 3.8
+* 3.9
+* 3.10
+* 3.11
+* 3.12
+* 3.13
+* 3.14
+* 3.15
+* 3.16
 
 A full list of supported settings and capabilities for this
 tap is available by running:
@@ -53,9 +68,7 @@ environment variable is set either in the terminal context or in the `.env` file
 
 ### Source Authentication and Authorization
 
-<!--
-Developer TODO: If your tap requires special access on the source system, or any special authentication requirements, provide those here.
--->
+Not required, the source is a public webpage
 
 ## Usage
 
