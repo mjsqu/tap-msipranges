@@ -15,6 +15,28 @@ Install from GitHub:
 pipx install git+https://github.com/ORG_NAME/tap-msipranges.git@main
 ```
 
+## Sample Data
+
+```json
+{
+  "changeNumber": 999999,
+  "cloud": "Public",
+  "values": [
+    {
+      "name": "ActionGroup",
+      "id": "ActionGroup",
+      "properties": {
+        "changeNumber": 999999999,
+        "region": "",
+        "regionId": 0,
+        "platform": "Azure",
+        "systemService": "ActionGroup",
+        "addressPrefixes": [
+          "0.0.0.0/0",
+```
+
+Each entry in the `values` list becomes a Singer `RECORD`, with each record having the top-level `changeNumber` key appended. It is assumed, at the time of writing, that the top-level `changeNumber` can be used to track changes in the file, whereas the `changeNumber` in each `values` element can be used to track changes in that particular element.
+
 ## Capabilities
 
 * `catalog`
