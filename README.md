@@ -4,6 +4,9 @@
 
 Built with the [Meltano Tap SDK](https://sdk.meltano.com) for Singer Taps.
 
+The tap extracts the current download link from the page: [Azure IP Ranges and Service Tags – Public Cloud](https://www.microsoft.com/en-us/download/confirmation.aspx?id=56519), which is of the format:
+`https://download.microsoft.com/download/7/1/D/{GUID}/ServiceTags_Public_{release_yyyymmdd}.json`. It then leverages the Meltano SDK to extract and produce Singer spec records to stdout, to be fed into a Singer target.
+
 ## Installation
 
 Install from GitHub:
