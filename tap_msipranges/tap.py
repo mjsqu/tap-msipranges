@@ -29,8 +29,7 @@ class TapMsIPRanges(Tap):
             description=(
               "The XPath expression that extracts a list of download links, "
             ),
-            default="//a[contains(@class, 'failoverLink') and "
-          "contains(@href,'download.microsoft.com/download/')]/@href"
+            default="//a[contains(@href,'download.microsoft.com/download/')]/@href"
         ),
         th.Property(
             "download_link_xpath_index",
