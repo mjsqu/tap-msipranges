@@ -21,7 +21,7 @@ class TapMsIPRanges(Tap):
             description=(
               "The download url for the Microsoft Azure API Ranges"
             ),
-            default="https://www.microsoft.com/en-us/download/confirmation.aspx?id=56519"
+            default="https://www.microsoft.com/en-us/download/details.aspx?id=56519"
         ),
         th.Property(
             "download_link_xpath",
