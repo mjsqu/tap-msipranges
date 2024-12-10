@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "tap-msipranges"
-version = "0.0.1"
+version = "0.0.2"
 description = "`tap-msipranges` is a Singer tap for MsIPRanges, built with the Meltano Singer SDK."
 readme = "README.md"
 authors = ["Mark Johnston <mj2.squ@gmail.com>"]

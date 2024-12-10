@@ -49,14 +49,14 @@ Each entry in the `values` list becomes a Singer `RECORD`, with each record havi
 
 ## Settings
 
-By default this tap goes to [Azure IP Ranges and Service Tags – Public Cloud](https://www.microsoft.com/en-us/download/confirmation.aspx?id=56519) - however it could be reconfigured to extract a download link from any Microsoft `/download/confirmation.aspx` type page. The JSON schema is hardcoded into `tap_msipranges/client.py` - so that would need to be updated for other file structures.
+By default this tap goes to [Azure IP Ranges and Service Tags – Public Cloud](https://www.microsoft.com/en-us/download/confirmation.aspx?id=56519) - however it could be reconfigured to extract a download link from any Microsoft `/download/details.aspx` type page. The JSON schema is hardcoded into `tap_msipranges/client.py` - so that would need to be updated for other file structures.
 
-The settings below are provided should the "Azure IP Ranges" MS page move or be reconfigured such that the JSON download link is not found at the 'failoverLink' location (the failoverLink is the "Click here if your download has not started automatically link"):
+The settings below are provided should the "Azure IP Ranges" MS page move or be reconfigured such that the JSON download link is not found at the same location.
 
 | Setting                  | Required | Default | Description |
 |:-------------------------|:--------:|:-------:|:------------|
-| download_url             | False    | https://www.microsoft.com/en-us/download/confirmation.aspx?id=56519 | The download url for the Microsoft Azure API Ranges |
-| download_link_xpath      | False    | //a[contains(@class, 'failoverLink') and contains(@href,'download.microsoft.com/download/')]/@href | The XPath expression that extracts a list of download links  |
+| download_url             | False    | https://www.microsoft.com/en-us/download/details.aspx?id=56519 | The download url for the Microsoft Azure API Ranges |
+| download_link_xpath      | False    | //a[contains(@href,'download.microsoft.com/download/')]/@href | The XPath expression that extracts a list of download links  |
 | download_link_xpath_index| False    |       0 | The index of the element containing the download link - paired with the download_link_xpath expression |
 | stream_maps              | False    | None    | Config object for stream maps capability. For more information check out [Stream Maps](https://sdk.meltano.com/en/latest/stream_maps.html). |
 | stream_map_config        | False    | None    | User-defined config values to be used within map expressions. |
@@ -65,6 +65,26 @@ The settings below are provided should the "Azure IP Ranges" MS page move or be 
 | batch_config             | False    | None    |             |
 
 A full list of supported settings and capabilities is available by running: `tap-msipranges --about`
+
+## Debugging XPath statements
+
+In Google Chrome it is possible to evaluate an XPath expression by opening up DevTools and entering into the console `$x('xpath expression)`. For example:
+
+```
+$x("//a[contains(@href,'download.microsoft.com/download/')]/@href")[0]
+```
+
+Which returns:
+
+```
+https://download.microsoft.com/download/7/1/D/{A GUID}/ServiceTags_Public_{yyyymmdd}.json
+```
+
+Removing or changing the `[0]` part allows you to check for other matching elements that might appear in the page. For example, the following returns over 100 results:
+
+```
+$x("//a[contains(@href,'microsoft.com')]/@href")
+```
 
 ## Supported Python Versions
 
